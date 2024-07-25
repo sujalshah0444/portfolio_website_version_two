@@ -1,27 +1,27 @@
 'use client';
-import { useState, useEffect } from 'react'
-import { useTheme } from 'next-themes'
-import Link from 'next/link'
-import { Link as ScrollLink } from 'react-scroll'
-import { FiSun, FiMoon } from 'react-icons/fi'
-import { FaNodeJs } from 'react-icons/fa'
-import { CgClose, CgMenuRight } from 'react-icons/cg'
+import { useState, useEffect } from 'react';
+import { useTheme } from 'next-themes';
+import Link from 'next/link';
+import { Link as ScrollLink } from 'react-scroll';
+import { FiSun, FiMoon } from 'react-icons/fi';
+import { FaNodeJs } from 'react-icons/fa';
+import { CgClose, CgMenuRight } from 'react-icons/cg';
 
 export default function Header({ logo }: { logo: string }) {
 
-    const [navCollapse, setNavCollapse] = useState(true)
-    const [scroll, setScroll] = useState(false)
-    const { theme, setTheme } = useTheme()
+    const [navCollapse, setNavCollapse] = useState(true);
+    const [scroll, setScroll] = useState(false);
+    const { theme, setTheme } = useTheme();
 
     useEffect(() => {
         const updateScroll = () => {
-            window.scrollY >= 90 ? setScroll(true) : setScroll(false)
-        }
-        window.addEventListener('scroll', updateScroll)
-    }, [])
+            window.scrollY >= 90 ? setScroll(true) : setScroll(false);
+        };
+        window.addEventListener('scroll', updateScroll);
+        return () => window.removeEventListener('scroll', updateScroll);
+    }, []);
 
-
-    const navs = ['home', 'about', 'certifications', 'experience', 'contact']
+    const navs = ['home', 'about', 'certifications', 'experience', 'contact'];
 
     return (
         <header className={`backdrop-filter backdrop-blur-lg ${scroll ? 'border-b bg-white bg-opacity-40' : 'border-b-0'} dark:bg-grey-900 dark:bg-opacity-40 border-gray-200 dark:border-b-0 z-30 min-w-full flex flex-col fixed`}>
@@ -55,7 +55,7 @@ export default function Header({ logo }: { logo: string }) {
             </nav>
 
             <nav className='p-4 flex sm:hidden items-center justify-between'>
-                {logo === 'Sujal Shah' ? <FaNodeJs size={28} /> : <span className='text-lg font-medium'>{logo.split(' ')[0]}</span>}
+                <span className='text-lg font-medium'>Sujal</span>
                 <div className='flex items-center gap-4'>
                     <span
                         onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
@@ -97,7 +97,6 @@ export default function Header({ logo }: { logo: string }) {
                     </ScrollLink>
                 </div>
             </div>
-
         </header>
-    )
+    );
 }
